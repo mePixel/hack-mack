@@ -10,7 +10,7 @@ test('built page contains contacts, legal text and every supplied logo', async (
   const sourceLogos = (await readdir(new URL('../logos/', import.meta.url))).filter(name => name.endsWith('.svg'));
   const images = [...html.matchAll(/<img\b[^>]*>/g)];
   assert.equal(images.length, sourceLogos.length);
-  assert.equal(images.filter(([tag]) => !/\bhidden(?:[\s=>])/.test(tag)).length, 1);
+  assert.equal(images.filter(([tag]) => /class="is-active"/.test(tag)).length, 1);
   for (const [tag] of images) {
     const src = tag.match(/src="([^"]+)"/)[1];
     assert.ok(src.startsWith('/_astro/'), 'Logo must be served locally');
