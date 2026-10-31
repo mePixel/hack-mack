@@ -1,0 +1,132 @@
+---
+const logos = Object.entries(
+  import.meta.glob<string>('../../logos/*.svg', {
+    eager: true,
+    query: '?url&no-inline',
+    import: 'default',
+  }),
+).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }));
+
+const emails = ['niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack.com'];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="hackmack – Verein für technologische Weiterbildung und Innovation in Wien. Kontakt und Impressum." />
+    <meta name="theme-color" content="#000000" />
+    <title>hackmack — Verein</title>
+  </head>
+  <body>
+    <main>
+      <div class="logos" role="img" aria-label="hackmack Logo">
+        {logos.map(([, src], index) => (
+          <img src={src} alt="" width="1000" height="1000" data-logo hidden={index !== 0} />
+        ))}
+      </div>
+
+      <h1>hackmack</h1>
+      <p class="description">Verein für technologische Weiterbildung und Innovation.<br />Wien, Österreich.</p>
+
+      <section aria-labelledby="kontakt">
+        <h2 id="kontakt">Kontakt</h2>
+        <ul>
+          {emails.map((email) => <li><a href={`mailto:${email}`}>{email}</a></li>)}
+        </ul>
+      </section>
+
+      <footer>
+        <button id="pause" type="button" aria-pressed="false" hidden>Animation pausieren</button>
+
+        <details>
+          <summary>Impressum</summary>
+          <div class="legal">
+            <p><strong>Medieninhaber und Betreiber</strong><br />Hackmack. Verein zur Förderung von Technologischer Weiterbildung und Innovation</p>
+            <p>c/o Niklas Erath<br />Zeuggasse 1/4<br />1050 Wien, Österreich</p>
+            <p><a href="mailto:xaver@hack-mack.com">xaver@hack-mack.com</a></p>
+            <p>ZVR-Zahl: [wird ergänzt]<br />Vertretungsbefugter Vorstand: [wird ergänzt]</p>
+            <p>Vereinszweck: Förderung von Bildung, Wissensvermittlung, technologischer Innovation und interdisziplinärem Austausch. Der Verein ist nicht auf Gewinn gerichtet.</p>
+            <p>Offenlegung gemäß § 25 MedienG: Diese Website informiert über den Verein und seine Kontaktmöglichkeiten.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Datenschutz</summary>
+          <div class="legal">
+            <p>Verantwortlich ist der im Impressum genannte Betreiber. Diese Website verwendet keine Cookies, kein Tracking und keine extern geladenen Schriftarten.</p>
+            <p>Für die Auslieferung der Website werden technisch notwendige Verbindungsdaten, insbesondere die IP-Adresse, verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (sicherer Betrieb). Hostinganbieter und Speicherfrist: [werden vor Veröffentlichung ergänzt].</p>
+            <p>Bei einer E-Mail-Anfrage verwenden wir deine Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b oder f DSGVO). Wir löschen sie, sobald sie dafür nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+            <p>Du hast nach Maßgabe der DSGVO Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch. Kontakt: <a href="mailto:xaver@hack-mack.com">xaver@hack-mack.com</a>. Beschwerden sind bei der <a href="https://www.dsb.gv.at/">österreichischen Datenschutzbehörde</a> möglich.</p>
+          </div>
+        </details>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html) { color-scheme: dark; background: #000; color: #fff; }
+  :global(body) { margin: 0; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; }
+  :global([hidden]) { display: none !important; }
+  :global(::selection) { background: #fff; color: #000; }
+  main { width: min(100% - 40px, 440px); margin: 0 auto; padding: 8vh 0 40px; text-align: center; }
+  .logos { width: 220px; height: 220px; margin: 0 auto 8px; }
+  .logos img { display: block; width: 100%; height: 100%; }
+  h1 { margin: 0; font-size: 40px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; }
+  .description { margin: 14px 0 0; color: #bdbdbd; }
+  section { margin: 36px 0; }
+  h2 { margin: 0 0 10px; font-size: 16px; font-weight: 400; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  li + li { margin-top: 4px; }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  a:hover { text-decoration: none; }
+  :is(a, button, summary):focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+  footer { border-top: 1px solid #333; padding-top: 20px; color: #bdbdbd; font-size: 13px; }
+  button { display: block; margin: 0 auto 18px; padding: 4px 8px; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  details + details { margin-top: 12px; }
+  summary { width: fit-content; margin: 0 auto; cursor: pointer; }
+  .legal { padding: 4px 0 12px; text-align: left; overflow-wrap: anywhere; }
+  .legal p { margin: 16px 0 0; }
+  .legal strong { color: #fff; font-weight: 500; }
+  @media (max-width: 480px) {
+    main { padding-top: 32px; }
+    .logos { width: 180px; height: 180px; }
+    h1 { font-size: 36px; }
+  }
+</style>
+
+<script>
+  const logos = Array.from(document.querySelectorAll<HTMLImageElement>('[data-logo]'));
+  const pause = document.querySelector<HTMLButtonElement>('#pause');
+
+  if (pause && logos.length > 1) {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let paused = motion.matches;
+    let index = 0;
+
+    const updateButton = () => {
+      pause.textContent = paused ? 'Animation starten' : 'Animation pausieren';
+      pause.setAttribute('aria-pressed', String(paused));
+    };
+
+    pause.hidden = false;
+    updateButton();
+    pause.addEventListener('click', () => {
+      paused = !paused;
+      updateButton();
+    });
+    motion.addEventListener('change', () => {
+      paused = motion.matches;
+      updateButton();
+    });
+    window.setInterval(() => {
+      if (paused || document.hidden) return;
+      logos[index].hidden = true;
+      index = (index + 1) % logos.length;
+      logos[index].hidden = false;
+    }, 900);
+  }
+</script>
