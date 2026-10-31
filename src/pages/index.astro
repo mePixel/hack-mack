@@ -15,19 +15,19 @@ const emails = ['niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="hackmack – Verein für technologische Weiterbildung und Innovation in Wien. Kontakt und Impressum." />
+    <meta name="description" content="hack-mack – Verein für technologische Weiterbildung und Innovation in Wien. Kontakt und Impressum." />
     <meta name="theme-color" content="#000000" />
-    <title>hackmack — Verein</title>
+    <title>hack-mack — Verein</title>
   </head>
   <body>
     <main>
-      <div class="logos" role="img" aria-label="hackmack Logo">
+      <div class="logos" role="img" aria-label="hack-mack Logo">
         {logos.map(([, src], index) => (
           <img src={src} alt="" width="1000" height="1000" data-logo class:list={{ 'is-active': index === 0 }} />
         ))}
       </div>
 
-      <h1>hackmack</h1>
+      <h1>hack-mack</h1>
       <p class="description">Verein für technologische <span>Weiterbildung und Innovation.</span><br />Wien, Österreich.</p>
 
       <section aria-labelledby="kontakt">
@@ -133,6 +133,6 @@ const emails = ['niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack
       logos[index].classList.remove('is-active');
       index = (index + 1) % logos.length;
       logos[index].classList.add('is-active');
-    }, 900);
+    }, 2400);
   }
 </script>

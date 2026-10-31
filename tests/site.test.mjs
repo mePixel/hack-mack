@@ -4,9 +4,10 @@ import { test } from 'node:test';
 
 test('built page contains contacts, legal text and every supplied logo', async () => {
   const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
-  for (const text of ['hackmack', 'niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack.com', 'Impressum', 'Datenschutz', 'ZVR-Zahl', '[wird ergänzt]']) {
+  for (const text of ['hack-mack', 'niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack.com', 'Impressum', 'Datenschutz', 'ZVR-Zahl', '[wird ergänzt]']) {
     assert.ok(html.includes(text), `Missing ${text}`);
   }
+  assert.match(html, /<h1\b[^>]*>hack-mack<\/h1>/);
   const sourceLogos = (await readdir(new URL('../logos/', import.meta.url))).filter(name => name.endsWith('.svg'));
   const images = [...html.matchAll(/<img\b[^>]*>/g)];
   assert.equal(images.length, sourceLogos.length);
