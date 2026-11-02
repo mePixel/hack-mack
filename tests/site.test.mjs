@@ -4,11 +4,12 @@ import { test } from 'node:test';
 
 test('built page contains contacts, legal text and every supplied logo', async () => {
   const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
-  for (const text of ['hack-mack', 'Projekte', 'tech&amp;tell', 'niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack.com', 'Impressum', 'Datenschutz', 'ZVR-Zahl', '[wird ergänzt]']) {
+  for (const text of ['hack-mack', 'Projekte', 'Tech Talk Vienna', 'niklas@hack-mack.com', 'xaver@hack-mack.com', 'sofiia@hack-mack.com', 'Impressum', 'Datenschutz', 'ZVR-Zahl', '[wird ergänzt]']) {
     assert.ok(html.includes(text), `Missing ${text}`);
   }
   assert.match(html, /<h1\b[^>]*>hack-mack<\/h1>/);
   assert.match(html, /<a\b[^>]*href="https:\/\/infra-ai-hackathon\.com\/"[^>]*aria-label="Zum Infra AI Hackathon \(neuer Tab\)"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/);
+  assert.match(html, /<a\b[^>]*href="https:\/\/luma\.com\/techtalkvienna"[^>]*target="_blank"[^>]*rel="noopener noreferrer"[^>]*>Tech Talk Vienna<\/a>/);
   const projects = html.indexOf('aria-labelledby="projekte"');
   assert.ok(projects !== -1 && projects < html.indexOf('aria-labelledby="kontakt"'), 'Projects must appear before contact');
   assert.doesNotMatch(html, /project-bubble|--bubble-|pointermove|pointerleave/);
